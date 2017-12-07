@@ -75,11 +75,26 @@ for like in likesList:
 	cursor.execute('INSERT INTO FbLikes (post_name,created_at,weekday) VALUES (?,?,?)',tup)
 	conn.commit()
 
+ 
 
-#for day in days:
-#	tup1=(day,)
-#	cursor.execute('INSERT INTO FbLikes(weekday) VALUES (?)', tup1)
-#	conn.commit()
+
+output = open("FaceBookLikes.txt","w")
+day_dict={}
+for day in days:
+	day_dict[day] = day_dict.get(day,0) + 1
+sorted_dict = sorted(day_dict.items(), key= lambda x: x[1], reverse = True)
+for k,v in sorted_dict:
+	output.write(k+ ": " + str(v)+ " likes \n")
+output.write("The most popular day you liked posts: " + str(sorted_dict[0][0]+ "\n"))
+output.write("The least popular day you liked posts: " + str(sorted_dict[-1][0]))
+output.close()
+
+
+
+
+
+
+
 
 
 
